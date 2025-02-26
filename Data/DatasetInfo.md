@@ -8,4 +8,3 @@ Este dataset proviene de la encuesta de desarrolladores de Stack Overflow 2018 y
 - **Nombre:** `survey_results_public.csv`
 - **Fuente:** Stack Overflow Developer Survey 2018
 ---
-📌 *Última actualización: $(date +"%d-%m-%Y")*
