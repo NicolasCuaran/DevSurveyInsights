@@ -1,6 +1,6 @@
 # Data files
 data/
 # credenciales de la db
-credenciales.txt
+.env
 # Virtual enviorment
 venv/
