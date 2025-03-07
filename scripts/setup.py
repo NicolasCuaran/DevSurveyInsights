@@ -3,33 +3,27 @@ from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, 
 from sqlalchemy_utils import database_exists, create_database
 from dotenv import load_dotenv
 
-# Cargar variables de entorno desde .env
 load_dotenv()
 
-# Obtener credenciales desde .env
+
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_HOST = os.getenv('DB_HOST', 'localhost')
 DB_PORT = os.getenv('DB_PORT', '5432')
 DB_NAME = os.getenv('DB_NAME', 'dev_survey_insights')
 
-# Crear la URL de conexión
 DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
-# Crear el engine de SQLAlchemy
 engine = create_engine(DATABASE_URL)
 
-# Crear la base de datos si no existe
 if not database_exists(engine.url):
     create_database(engine.url)
     print(f"Base de datos '{DB_NAME}' creada exitosamente.")
 else:
     print(f"La base de datos '{DB_NAME}' ya existe.")
 
-# Definir los metadatos
 metadata = MetaData()
 
-# Definir la tabla raw_survey con las 129 columnas
 raw_survey = Table(
     'raw_survey', metadata,
     Column('Respondent', Integer, primary_key=True),
@@ -84,7 +78,7 @@ raw_survey = Table(
     Column('JobEmailPriorities7', Float),
     Column('UpdateCV', String),
     Column('Currency', String),
-    Column('Salary', String),  # Almacenado como String porque puede incluir texto o estar vacío
+    Column('Salary', String),
     Column('SalaryType', String),
     Column('ConvertedSalary', Float),
     Column('CurrencySymbol', String),
@@ -94,7 +88,7 @@ raw_survey = Table(
     Column('SelfTaughtTypes', String),
     Column('TimeAfterBootcamp', String),
     Column('HackathonReasons', String),
-    Column('AgreeDisagree1', String),  # Espacio inicial preservado como en el CSV
+    Column('AgreeDisagree1', String),
     Column('AgreeDisagree2', String),
     Column('AgreeDisagree3', String),
     Column('LanguageWorkedWith', String),
@@ -163,6 +157,5 @@ raw_survey = Table(
     Column('SurveyEasy', String),
 )
 
-# Crear la tabla en la base de datos
 metadata.create_all(engine)
 print("Tabla 'raw_survey' creada o verificada exitosamente.")

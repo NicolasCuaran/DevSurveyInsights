@@ -4,3 +4,5 @@ data/
 .env
 # Virtual enviorment
 venv/
+# Visualizaciones
+Visualizaciones.pbix
