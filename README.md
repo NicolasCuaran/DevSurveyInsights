@@ -199,3 +199,18 @@ Follow these steps to set up the project on your local machine:
 3. **Data Cleaning and Transformation:**
    - Run the `03_Load_Clean_Survey.ipynb` notebook to clean the data and apply the necessary transformations (including the "HIRED" logic).
 
+# Creating a Power BI Connection to PostgreSQL
+
+In the top menu bar of Power BI, click Get Data.
+
+Search for PostgreSQL and select it.
+
+In the connection dialog, enter your server name (for example, localhost) and your database name (for example, postgres).
+
+When prompted, provide the username and password for your PostgreSQL database.
+
+Choose the table candidates_hired from the available list.
+
+Click Load to import the data into Power BI.
+
+You can now start creating your visualizations using the imported data.
