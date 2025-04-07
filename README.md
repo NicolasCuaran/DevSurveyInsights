@@ -178,7 +178,7 @@ Follow these steps to set up the project on your local machine:
 
 ## Running the Project
 
-### running setup.py:
+### running setup.py
 
 It loads database configuration from environment variables, connects to a PostgreSQL instance using SQLAlchemy, and creates the database if it doesn't already exist. Then, it defines the schema for a table named raw_survey—with columns corresponding to various survey fields from the Stack Overflow Developer Survey 2018—and creates the table within the database.
 
@@ -193,7 +193,7 @@ It loads database configuration from environment variables, connects to a Postgr
 3. **Data Cleaning and Transformation:**
     - Run the `03_Load_Clean_Survey.ipynb` notebook to clean the data and apply the necessary transformations (including the "HIRED" logic).
 
-# Creating a Power BI Connection to PostgreSQL
+## Creating a Power BI Connection to PostgreSQL
 
 In the top menu bar of Power BI, click Get Data.
 
