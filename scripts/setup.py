@@ -1,0 +1,161 @@
+import os
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, Float, Boolean
+from sqlalchemy_utils import database_exists, create_database
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_HOST = os.getenv('DB_HOST', 'localhost')
+DB_PORT = os.getenv('DB_PORT', '5432')
+DB_NAME = os.getenv('DB_NAME', 'dev_survey_insights')
+
+DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+engine = create_engine(DATABASE_URL)
+
+if not database_exists(engine.url):
+    create_database(engine.url)
+    print(f"Base de datos '{DB_NAME}' creada exitosamente.")
+else:
+    print(f"La base de datos '{DB_NAME}' ya existe.")
+
+metadata = MetaData()
+
+raw_survey = Table(
+    'raw_survey', metadata,
+    Column('Respondent', Integer, primary_key=True),
+    Column('Hobby', String),
+    Column('OpenSource', String),
+    Column('Country', String),
+    Column('Student', String),
+    Column('Employment', String),
+    Column('FormalEducation', String),
+    Column('UndergradMajor', String),
+    Column('CompanySize', String),
+    Column('DevType', String),
+    Column('YearsCoding', String),
+    Column('YearsCodingProf', String),
+    Column('JobSatisfaction', String),
+    Column('CareerSatisfaction', String),
+    Column('HopeFiveYears', String),
+    Column('JobSearchStatus', String),
+    Column('LastNewJob', String),
+    Column('AssessJob1', Float),
+    Column('AssessJob2', Float),
+    Column('AssessJob3', Float),
+    Column('AssessJob4', Float),
+    Column('AssessJob5', Float),
+    Column('AssessJob6', Float),
+    Column('AssessJob7', Float),
+    Column('AssessJob8', Float),
+    Column('AssessJob9', Float),
+    Column('AssessJob10', Float),
+    Column('AssessBenefits1', Float),
+    Column('AssessBenefits2', Float),
+    Column('AssessBenefits3', Float),
+    Column('AssessBenefits4', Float),
+    Column('AssessBenefits5', Float),
+    Column('AssessBenefits6', Float),
+    Column('AssessBenefits7', Float),
+    Column('AssessBenefits8', Float),
+    Column('AssessBenefits9', Float),
+    Column('AssessBenefits10', Float),
+    Column('AssessBenefits11', Float),
+    Column('JobContactPriorities1', Float),
+    Column('JobContactPriorities2', Float),
+    Column('JobContactPriorities3', Float),
+    Column('JobContactPriorities4', Float),
+    Column('JobContactPriorities5', Float),
+    Column('JobEmailPriorities1', Float),
+    Column('JobEmailPriorities2', Float),
+    Column('JobEmailPriorities3', Float),
+    Column('JobEmailPriorities4', Float),
+    Column('JobEmailPriorities5', Float),
+    Column('JobEmailPriorities6', Float),
+    Column('JobEmailPriorities7', Float),
+    Column('UpdateCV', String),
+    Column('Currency', String),
+    Column('Salary', String),
+    Column('SalaryType', String),
+    Column('ConvertedSalary', Float),
+    Column('CurrencySymbol', String),
+    Column('CommunicationTools', String),
+    Column('TimeFullyProductive', String),
+    Column('EducationTypes', String),
+    Column('SelfTaughtTypes', String),
+    Column('TimeAfterBootcamp', String),
+    Column('HackathonReasons', String),
+    Column('AgreeDisagree1', String),
+    Column('AgreeDisagree2', String),
+    Column('AgreeDisagree3', String),
+    Column('LanguageWorkedWith', String),
+    Column('LanguageDesireNextYear', String),
+    Column('DatabaseWorkedWith', String),
+    Column('DatabaseDesireNextYear', String),
+    Column('PlatformWorkedWith', String),
+    Column('PlatformDesireNextYear', String),
+    Column('FrameworkWorkedWith', String),
+    Column('FrameworkDesireNextYear', String),
+    Column('IDE', String),
+    Column('OperatingSystem', String),
+    Column('NumberMonitors', String),
+    Column('Methodology', String),
+    Column('VersionControl', String),
+    Column('CheckInCode', String),
+    Column('AdBlocker', String),
+    Column('AdBlockerDisable', String),
+    Column('AdBlockerReasons', String),
+    Column('AdsAgreeDisagree1', String),
+    Column('AdsAgreeDisagree2', String),
+    Column('AdsAgreeDisagree3', String),
+    Column('AdsActions', String),
+    Column('AdsPriorities1', Float),
+    Column('AdsPriorities2', Float),
+    Column('AdsPriorities3', Float),
+    Column('AdsPriorities4', Float),
+    Column('AdsPriorities5', Float),
+    Column('AdsPriorities6', Float),
+    Column('AdsPriorities7', Float),
+    Column('AIDangerous', String),
+    Column('AIInteresting', String),
+    Column('AIResponsible', String),
+    Column('AIFuture', String),
+    Column('EthicsChoice', String),
+    Column('EthicsReport', String),
+    Column('EthicsResponsible', String),
+    Column('EthicalImplications', String),
+    Column('StackOverflowRecommend', String),
+    Column('StackOverflowVisit', String),
+    Column('StackOverflowHasAccount', String),
+    Column('StackOverflowParticipate', String),
+    Column('StackOverflowJobs', String),
+    Column('StackOverflowDevStory', String),
+    Column('StackOverflowJobsRecommend', String),
+    Column('StackOverflowConsiderMember', String),
+    Column('HypotheticalTools1', String),
+    Column('HypotheticalTools2', String),
+    Column('HypotheticalTools3', String),
+    Column('HypotheticalTools4', String),
+    Column('HypotheticalTools5', String),
+    Column('WakeTime', String),
+    Column('HoursComputer', String),
+    Column('HoursOutside', String),
+    Column('SkipMeals', String),
+    Column('ErgonomicDevices', String),
+    Column('Exercise', String),
+    Column('Gender', String),
+    Column('SexualOrientation', String),
+    Column('EducationParents', String),
+    Column('RaceEthnicity', String),
+    Column('Age', String),
+    Column('Dependents', String),
+    Column('MilitaryUS', String),
+    Column('SurveyTooLong', String),
+    Column('SurveyEasy', String),
+)
+
+metadata.create_all(engine)
+print("Tabla 'raw_survey' creada o verificada exitosamente.")
