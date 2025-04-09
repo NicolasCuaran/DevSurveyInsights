@@ -1,0 +1,7 @@
+SQLAlchemy==2.0.38
+SQLAlchemy-Utils==0.41.2
+numpy<2
+pandas==2.2.3
+psycopg2-binary==2.9.10
+python-dateutil==2.9.0.post0
+python-dotenv==1.0.1
