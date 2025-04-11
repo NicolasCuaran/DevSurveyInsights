@@ -244,6 +244,6 @@ From the implementation and configuration of **DevSurveyInsights** using Docker,
 4. **Integration and Flexibility:**  
    Although the main environment is containerized, the notebooks remain a powerful tool for exploratory analysis and testing, perfectly integrating with our Docker-managed system.
 
-Overall, this approach has enabled our team to build a robust, reproducible data processing environment that maximizes development efficiency and simplifies project deployment with **DevSurveyInsights**.
+
 
 ---
