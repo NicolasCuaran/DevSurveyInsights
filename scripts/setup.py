@@ -8,16 +8,16 @@ load_dotenv()
 
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
-DB_HOST = os.getenv('DB_HOST', 'localhost')
-DB_PORT = os.getenv('DB_PORT', '5432')
-DB_NAME = os.getenv('DB_NAME', 'dev_survey_insights')
+DB_HOST = os.getenv('DB_HOST')
+DB_PORT = os.getenv('DB_PORT')
+DB_NAME = os.getenv('DB_NAME')
 
 DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 engine = create_engine(DATABASE_URL)
 
-if not database_exists(engine.url):
-    create_database(engine.url)
+if not database_exists(DATABASE_URL):
+    create_database(DATABASE_URL)
     print(f"Base de datos '{DB_NAME}' creada exitosamente.")
 else:
     print(f"La base de datos '{DB_NAME}' ya existe.")

@@ -1,8 +1,12 @@
-# Data files
+# Datos
 data/
-# credenciales de la db
+
+# Credenciales de la db
 .env
-# Virtual enviorment
+
+# Entorno virtual y caché de Pytho
 venv/
+__pycache__/
+
 # Visualizaciones
 Visualizaciones.pbix
