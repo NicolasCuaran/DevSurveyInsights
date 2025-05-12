@@ -4,7 +4,7 @@ data/
 # Credenciales de la db
 .env
 
-# Entorno virtual y caché de Pytho
+# Entorno virtual y cache de Pytho
 venv/
 __pycache__/
 
