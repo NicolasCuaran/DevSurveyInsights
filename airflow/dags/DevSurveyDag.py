@@ -26,60 +26,76 @@ default_args = {
 def dev_survey_dag():
 
     @task 
-    def extract_from_db_task():
+    def extract_from_db():
         return extract_db_data()
-        
-    # @task
-    # def extract_from_api_task():
-    #     pass
-    
-    # @task
-    # def transform_api_task(raw_api_df):
-    #     pass
-    
-    # @task
-    # def merge_task(df_db, df_api):
-    #     pass
     
     @task
-    def transform_dm_task(df):
+    def validate_db_data(db_df):
+        return validate_db_data_task(db_df)
         
-        data = transform_dm(df)
+    @task
+    def extract_from_api():
+        return extract_api_data(target_repos=100)
+    
+    @task
+    def validate_api_data(api_df):
+        return validate_api_data_task(api_df)
+    
+    @task
+    def transform_api(raw_api_df):
+        return transform_api_data_task(raw_api_df)
+    
+    @task
+    def merge(df_db, df_api):
+        return merge_data_task(df_db, df_api)
+    
+    @task
+    def transform_dm(df):
+        
+        data = transform_dm_task(df)
         
         return {
-            'dimension_1': data[0],
-            'dimension_2': data[1],
-            'dimension_3': data[2],
-            'dimension_4': data[3],
-            'dimension_5': data[4],
+            'dim_demographic': data[0],
+            'dim_professional_experience': data[1],
+            'dim_tech_tools': data[2],
+            'dim_job_satisfaction': data[3],
+            'dim_miscellaneous': data[4],
             'fact_table': data[5]
         }
     
     @task
-    def load_task(df):
+    def load(df):
         
-        dimension_1 = df['dimension_1']
-        dimension_2 = df['dimension_2']
-        dimension_3 = df['dimension_3']
-        dimension_4 = df['dimension_4']
-        dimension_5 = df['dimension_5']
+        dim_demographic = df['dim_demographic']
+        dim_professional_experience = df['dim_professional_experience']
+        dim_tech_tools = df['dim_tech_tools']
+        dim_job_satisfaction = df['dim_job_satisfaction']
+        dim_miscellaneous = df['dim_miscellaneous']
         fact_table = df['fact_table']
         
-        load_data(dimension_1, dimension_2, dimension_3, dimension_4, dimension_5, fact_table)
+        load_data_task(dim_demographic, dim_professional_experience, dim_tech_tools, dim_job_satisfaction, dim_miscellaneous, fact_table)
         
         return fact_table
+    
+    @task
+    def kafka_producer(fact_table_json_string):
+        kafka_producer_fact_table(fact_table_json_string)
 
-    db_data = extract_from_db_task()
-    # api_data = extract_from_api_task()
+    db_data = extract_from_db()    
+    api_data = extract_from_api()
+
+    db_validated_data = validate_db_data(db_data)
+    api_validated_data = validate_api_data(api_data)
     
-    # api_transformed = transform_api_task(api_data)
+    api_transformed = transform_api(api_validated_data)
     
-    # merged_data = merge_task(db_data, api_transformed)
+    merged_data = merge(db_validated_data, api_transformed)
     
-    # dimensional_model = transform_dm_task(merged_data)
-    dimensional_model = transform_dm_task(db_data)
+    dimensional_model = transform_dm(merged_data)
     
-    loaded_data = load_task(dimensional_model)
+    fact_table = load(dimensional_model)
+    
+    kafka_producer(fact_table)
 
     
 dev_survey_dag = dev_survey_dag()

@@ -4,9 +4,16 @@ data/
 # Credenciales de la db
 .env
 
-# Entorno virtual y cache de Pytho
+# Entorno virtual y caché de Python
 venv/
 __pycache__/
 
+# Airflow
+config/
+logs/
+plugins/
+
 # Visualizaciones
 Visualizaciones.pbix
+
+C:\Users\Nicolas Cuaran\Desktop\ETL\Proyecto Segunda entrega\DevSurveyInsights\notebooks\.template.env
